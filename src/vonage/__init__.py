@@ -24,11 +24,7 @@ from deprecated import deprecated
 
 string_types = (str, bytes)
 from urllib.parse import urlparse
-
-try:
-    from json import JSONDecodeError
-except ImportError:
-    JSONDecodeError = ValueError
+from json import JSONDecodeError
 
 
 __version__ = "2.4.0"

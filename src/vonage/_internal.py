@@ -1,13 +1,9 @@
 import logging
+from json import JSONDecodeError
 
 from requests.sessions import Session
 
 from .errors import AuthenticationError, ClientError, ServerError
-
-try:
-    from json import JSONDecodeError
-except ImportError:
-    JSONDecodeError = ValueError
 
 logger = logging.getLogger("nexmo")
 
