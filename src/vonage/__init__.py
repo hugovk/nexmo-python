@@ -100,7 +100,7 @@ class Client:
             with open(self.private_key, "rb") as key_file:
                 self.private_key = key_file.read()
 
-        self.__host_pattern = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$|^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)+([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$"
+        self.__host_pattern = r"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$|^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)+([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$"
 
         self.__host = "rest.nexmo.com"
 
@@ -580,11 +580,9 @@ class Client:
         headers = self.headers
         if header_auth:
             h = base64.b64encode(
-                (
                     "{api_key}:{api_secret}".format(
                         api_key=self.api_key, api_secret=self.api_secret
                     ).encode("utf-8")
-                )
             ).decode("ascii")
             headers = dict(headers or {}, Authorization="Basic {hash}".format(hash=h))
         else:
@@ -618,11 +616,9 @@ class Client:
             params["sig"] = self.signature(params)
         elif header_auth:
             h = base64.b64encode(
-                (
                     "{api_key}:{api_secret}".format(
                         api_key=self.api_key, api_secret=self.api_secret
                     ).encode("utf-8")
-                )
             ).decode("ascii")
             headers = dict(headers or {}, Authorization="Basic {hash}".format(hash=h))
         else:
@@ -636,11 +632,9 @@ class Client:
         """
         uri = "https://{host}{request_uri}".format(host=host, request_uri=request_uri)
         auth = base64.b64encode(
-            (
                 "{api_key}:{api_secret}".format(
                     api_key=self.api_key, api_secret=self.api_secret
                 ).encode("utf-8")
-            )
         ).decode("ascii")
         headers = dict(
             self.headers or {}, Authorization="Basic {hash}".format(hash=auth)
@@ -656,11 +650,9 @@ class Client:
         headers = self.headers
         if header_auth:
             h = base64.b64encode(
-                (
                     "{api_key}:{api_secret}".format(
                         api_key=self.api_key, api_secret=self.api_secret
                     ).encode("utf-8")
-                )
             ).decode("ascii")
             # Must create a new headers dict here, otherwise we'd be mutating `self.headers`:
             headers = dict(headers or {}, Authorization="Basic {hash}".format(hash=h))
@@ -676,11 +668,9 @@ class Client:
         headers = self.headers
         if header_auth:
             h = base64.b64encode(
-                (
                     "{api_key}:{api_secret}".format(
                         api_key=self.api_key, api_secret=self.api_secret
                     ).encode("utf-8")
-                )
             ).decode("ascii")
             # Must create a new headers dict here, otherwise we'd be mutating `self.headers`:
             headers = dict(headers or {}, Authorization="Basic {hash}".format(hash=h))
