@@ -460,17 +460,13 @@ class Client:
         reason="vonage.Client#update_call is deprecated. Use Voice#update_call instead"
     )
     def update_call(self, uuid, params=None, **kwargs):
-        return self._jwt_signed_put(
-            f"/v1/calls/{uuid}", params or kwargs
-        )
+        return self._jwt_signed_put(f"/v1/calls/{uuid}", params or kwargs)
 
     @deprecated(
         reason="vonage.Client#send_audio is deprecated. Use Voice#send_audio instead"
     )
     def send_audio(self, uuid, params=None, **kwargs):
-        return self._jwt_signed_put(
-            f"/v1/calls/{uuid}/stream", params or kwargs
-        )
+        return self._jwt_signed_put(f"/v1/calls/{uuid}/stream", params or kwargs)
 
     @deprecated(
         reason="vonage.Client#stop_audio is deprecated. Use Voice#stop_audio instead"
@@ -482,9 +478,7 @@ class Client:
         reason="vonage.Client#send_speech is deprecated. Use Voice#send_speech instead"
     )
     def send_speech(self, uuid, params=None, **kwargs):
-        return self._jwt_signed_put(
-            f"/v1/calls/{uuid}/talk", params or kwargs
-        )
+        return self._jwt_signed_put(f"/v1/calls/{uuid}/talk", params or kwargs)
 
     @deprecated(
         reason="vonage.Client#stop_speech is deprecated. Use Voice#stop_speech instead"
@@ -496,9 +490,7 @@ class Client:
         reason="vonage.Client#send_dtmf is deprecated. Use Voice#send_dtmf instead"
     )
     def send_dtmf(self, uuid, params=None, **kwargs):
-        return self._jwt_signed_put(
-            f"/v1/calls/{uuid}/dtmf", params or kwargs
-        )
+        return self._jwt_signed_put(f"/v1/calls/{uuid}/dtmf", params or kwargs)
 
     def get_recording(self, url):
         hostname = urlparse(url).hostname
@@ -528,9 +520,7 @@ class Client:
 
     def create_secret(self, api_key, secret):
         body = {"secret": secret}
-        return self._post_json(
-            self.api_host(), f"/accounts/{api_key}/secrets", body
-        )
+        return self._post_json(self.api_host(), f"/accounts/{api_key}/secrets", body)
 
     def delete_secret(self, api_key, secret_id):
         return self.delete(
@@ -576,9 +566,9 @@ class Client:
         headers = self.headers
         if header_auth:
             h = base64.b64encode(
-                    "{api_key}:{api_secret}".format(
-                        api_key=self.api_key, api_secret=self.api_secret
-                    ).encode("utf-8")
+                "{api_key}:{api_secret}".format(
+                    api_key=self.api_key, api_secret=self.api_secret
+                ).encode("utf-8")
             ).decode("ascii")
             headers = dict(headers or {}, Authorization=f"Basic {h}")
         else:
@@ -612,9 +602,9 @@ class Client:
             params["sig"] = self.signature(params)
         elif header_auth:
             h = base64.b64encode(
-                    "{api_key}:{api_secret}".format(
-                        api_key=self.api_key, api_secret=self.api_secret
-                    ).encode("utf-8")
+                "{api_key}:{api_secret}".format(
+                    api_key=self.api_key, api_secret=self.api_secret
+                ).encode("utf-8")
             ).decode("ascii")
             headers = dict(headers or {}, Authorization=f"Basic {h}")
         else:
@@ -628,13 +618,11 @@ class Client:
         """
         uri = f"https://{host}{request_uri}"
         auth = base64.b64encode(
-                "{api_key}:{api_secret}".format(
-                    api_key=self.api_key, api_secret=self.api_secret
-                ).encode("utf-8")
+            "{api_key}:{api_secret}".format(
+                api_key=self.api_key, api_secret=self.api_secret
+            ).encode("utf-8")
         ).decode("ascii")
-        headers = dict(
-            self.headers or {}, Authorization=f"Basic {auth}"
-        )
+        headers = dict(self.headers or {}, Authorization=f"Basic {auth}")
         logger.debug(
             "POST to %r with body: %r, headers: %r", request_uri, json, headers
         )
@@ -646,9 +634,9 @@ class Client:
         headers = self.headers
         if header_auth:
             h = base64.b64encode(
-                    "{api_key}:{api_secret}".format(
-                        api_key=self.api_key, api_secret=self.api_secret
-                    ).encode("utf-8")
+                "{api_key}:{api_secret}".format(
+                    api_key=self.api_key, api_secret=self.api_secret
+                ).encode("utf-8")
             ).decode("ascii")
             # Must create a new headers dict here, otherwise we'd be mutating `self.headers`:
             headers = dict(headers or {}, Authorization=f"Basic {h}")
@@ -664,9 +652,9 @@ class Client:
         headers = self.headers
         if header_auth:
             h = base64.b64encode(
-                    "{api_key}:{api_secret}".format(
-                        api_key=self.api_key, api_secret=self.api_secret
-                    ).encode("utf-8")
+                "{api_key}:{api_secret}".format(
+                    api_key=self.api_key, api_secret=self.api_secret
+                ).encode("utf-8")
             ).decode("ascii")
             # Must create a new headers dict here, otherwise we'd be mutating `self.headers`:
             headers = dict(headers or {}, Authorization=f"Basic {h}")

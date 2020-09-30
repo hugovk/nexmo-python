@@ -46,4 +46,3 @@ class Verify:
         return self._client.post(
             self._client.api_host(), "/verify/psd2/json", params or kwargs
         )
-
